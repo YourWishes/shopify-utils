@@ -1,4 +1,4 @@
-import { generateShopUrl, encode } from './index';
+import { generateShopUrl, encode, generateInstallUrl } from './index';
 
 describe('generateShopUrl', () => {
   it('should return the correct url', () => {
@@ -18,5 +18,15 @@ describe('encode', () => {
     expect(encode('if 1 + 2 = 3 then do it')).toStrictEqual('if 1 + 2 %3D 3 then do it');
 
     expect(encode('It is == to true')).toStrictEqual('It is %3D%3D to true');
+  });
+});
+
+describe('generateInstallUrl', () => {
+  it('should return an install url', () => {
+    expect(
+      generateInstallUrl('myshop', '1235467890', ['read_themes', 'read_orders'], '/test', 'myState')
+    ).toStrictEqual(
+      `https://myshop.myshopify.com/admin/oauth/authorize?client_id=1235467890&scope=read_themes%2Cread_orders&redirect_uri=%2Ftest&state=myState`
+    );
   });
 });

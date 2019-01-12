@@ -29,6 +29,26 @@ export const generateShopUrl = (shop:string, url:string = '/'):string => {
   return `${shop}${url}`;
 }
 
+export const generateInstallUrl = (shop:string, clientId:string, scopes:string[], redirectUri:string, state:string) =>  {
+  let url = generateShopUrl(shop, '/admin/oauth/authorize');
+  let o = {
+    client_id: clientId,
+    scope: scopes.join(','),
+    redirect_uri: redirectUri,
+    state
+  };
+  url += '?';
+  let keys = Object.keys(o);
+  for(let i = 0; i < keys.length; i++) {
+    let key = keys[i];
+    let keyEscaped = encodeURIComponent(key);
+    let valueEscaped = encodeURIComponent(o[key]);
+    if(i != 0) url += '&';
+    url += `${keyEscaped}=${valueEscaped}`;
+  }
+  return url;
+};
+
 export const encode = (data:string) => {
   //Shopify doesn't use the standard encodeUriComponent style fo escaping.
   return data.replace(/\%/g, "%25").replace(/\&/g, "%26").replace(/\=/g,"%3D");

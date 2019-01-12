@@ -1,0 +1,38 @@
+{
+  "name": "@yourwishes/shopify-utils",
+  "version": "1.0.0",
+  "description": "Common frontend and backend Shopify Utilities",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "npm run build:live",
+    "build": "tsc -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YourWishes/shopify-utils.git"
+  },
+  "keywords": [
+    "server",
+    "app-shopify",
+    "framework",
+    "shopify",
+    "app",
+    "apps"
+  ],
+  "author": "Dominic Masters <dominic@domsplace.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YourWishes/shopify-utils/issues"
+  },
+  "homepage": "https://github.com/YourWishes/shopify-utils#readme",
+  "devDependencies": {
+    "@types/jest": "^23.3.10",
+    "@types/node": "^10.12.12",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {}
+}

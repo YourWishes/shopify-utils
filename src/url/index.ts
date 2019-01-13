@@ -53,3 +53,15 @@ export const encode = (data:string) => {
   //Shopify doesn't use the standard encodeUriComponent style fo escaping.
   return data.replace(/\%/g, "%25").replace(/\&/g, "%26").replace(/\=/g,"%3D");
 }
+
+export const encodeObject = (o:object):string => {
+  let keys = Object.keys(o);
+  let qs = '';
+  for(let i = 0; i < keys.length; i++) {
+    let key = encode(keys[i]);
+    let val = encode(o[keys[i]]);
+    qs += `${key}=${val}`;
+    if(i < keys.length-1) qs += '&';
+  }
+  return qs;
+};

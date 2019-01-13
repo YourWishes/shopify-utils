@@ -1,6 +1,6 @@
 {
   "name": "@yourwishes/shopify-utils",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Common frontend and backend Shopify Utilities",
   "main": "dist/index.js",
   "scripts": {

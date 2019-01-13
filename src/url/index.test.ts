@@ -1,4 +1,6 @@
-import { generateShopUrl, encode, generateInstallUrl, encodeObject } from './index';
+import {
+  generateShopUrl, encode, generateInstallUrl, encodeObject, isValidShopName
+} from './index';
 
 describe('generateShopUrl', () => {
   it('should return the correct url', () => {
@@ -7,6 +9,25 @@ describe('generateShopUrl', () => {
     expect(generateShopUrl('othershop', '/')).toEqual('https://othershop.myshopify.com/');
     expect(generateShopUrl('othershop', '/test')).toEqual('https://othershop.myshopify.com/test');
     expect(generateShopUrl('http://othershop', '/test')).toEqual('http://othershop.myshopify.com/test');
+  });
+});
+
+describe('isValidShopName', () => {
+  it('should return true for real shop urls', () => {
+    expect(isValidShopName('myshop.myshopify.com')).toEqual(true);
+    expect(isValidShopName('my-book-store.myshopify.com')).toEqual(true);
+    expect(isValidShopName('a.myshopify.com')).toEqual(true);
+  });
+
+  it('should return false for bad urls', () => {
+    expect(isValidShopName('myshop')).toEqual(false);
+    expect(isValidShopName('myshop.myshopify')).toEqual(false);
+    expect(isValidShopName('https://myshop.myshopify.com')).toEqual(false);
+    expect(isValidShopName('my%20shop.myshopify.com')).toEqual(false);
+    expect(isValidShopName('.myshopify.com')).toEqual(false);
+    expect(isValidShopName('myshopify.com')).toEqual(false);
+    expect(isValidShopName('store.com')).toEqual(false);
+    expect(isValidShopName('test.store.with.dots.myshopify.com')).toEqual(false);
   });
 });
 

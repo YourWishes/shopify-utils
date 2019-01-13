@@ -21,13 +21,35 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+import { URL } from 'url';
+
+const SHOPFIY_SUFFIX = '.myshopify.com'
+
 export const generateShopUrl = (shop:string, url:string = '/'):string => {
   if(!shop.startsWith('http')) shop = `https://${shop}`;
-  if(!shop.endsWith('.myshopify.com')) shop = `${shop}.myshopify.com`;
+  if(!shop.endsWith(SHOPFIY_SUFFIX)) shop += SHOPFIY_SUFFIX;
   if(!url.startsWith('/')) url = `/${url}`;
 
   return `${shop}${url}`;
 }
+
+
+export const isValidShopName = (shop:string):boolean => {
+  let shopUrl = shop;
+  shopUrl = `https://${shopUrl}`;//Prepend protocol
+
+  let u;
+  try { u = new URL(shopUrl); } catch(e) { return false; } //Parse URL Attempt.
+
+  let { hostname } = u;
+  return (
+    hostname === shop && //Make sure the url parse didn't affect what they're testing
+    /^[a-z][-a-z0-9\._]*$/.test(hostname) && //Test for A-z, 0-9, . and _ only
+    hostname.endsWith(SHOPFIY_SUFFIX) && //ends with .myshopify.com
+    hostname.split('.').length === 3 //Make sure there aren't extra dots (only shop.myshopify.com)
+  );
+};
+
 
 export const generateInstallUrl = (shop:string, clientId:string, scopes:string[], redirectUri:string, state:string) =>  {
   let url = generateShopUrl(shop, '/admin/oauth/authorize');
@@ -49,10 +71,12 @@ export const generateInstallUrl = (shop:string, clientId:string, scopes:string[]
   return url;
 };
 
+
 export const encode = (data:string) => {
   //Shopify doesn't use the standard encodeUriComponent style for escaping for some reason.
   return data.replace(/\%/g, "%25").replace(/\&/g, "%26");
 }
+
 
 export const encodeObject = (o:object):string => {
   let keys = Object.keys(o);

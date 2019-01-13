@@ -50,8 +50,8 @@ export const generateInstallUrl = (shop:string, clientId:string, scopes:string[]
 };
 
 export const encode = (data:string) => {
-  //Shopify doesn't use the standard encodeUriComponent style fo escaping.
-  return data.replace(/\%/g, "%25").replace(/\&/g, "%26").replace(/\=/g,"%3D");
+  //Shopify doesn't use the standard encodeUriComponent style for escaping for some reason.
+  return data.replace(/\%/g, "%25").replace(/\&/g, "%26");
 }
 
 export const encodeObject = (o:object):string => {

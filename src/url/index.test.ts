@@ -15,16 +15,16 @@ describe('encode', () => {
   it('should encode a string as expected', () => {
     expect(encode('test')).toStrictEqual('test');
     expect(encode('The cost of that is 20% off')).toStrictEqual('The cost of that is 20%25 off');
-    expect(encode('if 1 + 2 = 3 then do it')).toStrictEqual('if 1 + 2 %3D 3 then do it');
+    expect(encode('if 1 + 2 = 3 then do it')).toStrictEqual('if 1 + 2 = 3 then do it');
 
-    expect(encode('It is == to true')).toStrictEqual('It is %3D%3D to true');
+    expect(encode('It is == to true')).toStrictEqual('It is == to true');
   });
 });
 
 describe('encodeObject', () => {
   it('should encode all the parts of an object', () => {
     expect(encodeObject({ hello: 'world' })).toEqual('hello=world');
-    expect(encodeObject({ sale: '20%', formula: '1+2=3' })).toEqual('sale=20%25&formula=1+2%3D3');
+    expect(encodeObject({ sale: '20%', formula: '1+2=3' })).toEqual('sale=20%25&formula=1+2=3');
   });
 });
 
